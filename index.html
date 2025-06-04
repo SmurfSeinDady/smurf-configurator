@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -96,7 +97,7 @@
     <label for="notes">📝 Weitere Wünsche oder Notizen</label>
     <textarea id="notes" name="notes" rows="4" placeholder="Optional: Waffen, Verhalten, Extras..."></textarea>
 
-    <button type="submit">✅ Anfrage senden</button>
+    <button type="submit">✅ Anfrage anzeigen</button>
   </form>
 
   <div class="footer">
@@ -105,22 +106,26 @@
 
   <script>
     const form = document.getElementById('customForm');
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
       const data = new FormData(form);
-      let message = '📋 Neue Custom Script Anfrage:\\n\\n';
+      let message = '📋 Deine Eingaben:\n\n';
       for (const [key, value] of data.entries()) {
-        message += `**${key}**: ${value}\\n`;
+        message += `${key}: ${value}\n`;
       }
-
-      await fetch("https://discord.com/api/webhooks/1379893845537325116/6Chc006dlUBr-EvxleuKRD9FJJUg3ZHklfpVqx0YNXqFBb_HmmKQBLN8yGVv9MvMtd1C", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: message })
-      });
-
-      alert("✅ Anfrage erfolgreich gesendet! Wir melden uns bald über Discord.");
+      
+    fetch("https://discord.com/api/webhooks/1379893845537325116/6Chc006dlUBr-EvxleuKRD9FJJUg3ZHklfpVqx0YNXqFBb_HmmKQBLN8yGVv9MvMtd1C", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: message })
+    })
+    .then(() => {
+      alert("✅ Anfrage erfolgreich gesendet! Wir melden uns auf Discord.");
       form.reset();
+    })
+    .catch((error) => {
+      alert("❌ Fehler beim Senden: " + error.message);
+    });
     });
   </script>
 
