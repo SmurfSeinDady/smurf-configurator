@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmurfSeinDady Custom Script Konfigurator</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      font-family: 'Segoe UI', sans-serif;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #58a6ff;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 1.2rem;
+      font-weight: 600;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: none;
+      margin-top: 0.5rem;
+      background: #161b22;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #238636;
+      color: white;
+      padding: 0.75rem;
+      margin-top: 2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.2rem;
+      width: 100%;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2ea043;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: #8b949e;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎮 SmurfSeinDady Custom Script Konfigurator</h1>
+  <p style="text-align:center;">Trage hier deine Werte ein und sende uns deine perfekte Wunschkonfiguration für dein privates Cronus Zen Script.</p>
+
+  <form id="customForm">
+    <label for="fov">🧭 Sichtfeld (FoV)</label>
+    <input type="number" id="fov" name="fov" placeholder="z. B. 105" required>
+
+    <label for="adsSens">🎯 ADS-Sensitivität</label>
+    <input type="text" id="adsSens" name="adsSens" placeholder="z. B. 1.10" required>
+
+    <label for="deadzone">🎮 Stick-Deadzone</label>
+    <input type="text" id="deadzone" name="deadzone" placeholder="z. B. L3: 3 / R3: 2" required>
+
+    <label for="aimstyle">📌 Zielstil</label>
+    <select id="aimstyle" name="aimstyle">
+      <option value="tracking">Tracking</option>
+      <option value="snapping">Snapping</option>
+      <option value="hybrid">Hybrid</option>
+    </select>
+
+    <label for="playstyle">⚡ Spielstil</label>
+    <select id="playstyle" name="playstyle">
+      <option value="aggressiv">Aggressiv</option>
+      <option value="passiv">Passiv</option>
+      <option value="taktisch">Taktisch</option>
+    </select>
+
+    <label for="zvMulti">📐 ZV-Empfindlichkeits-Multiplikator</label>
+    <input type="text" id="zvMulti" name="zvMulti" placeholder="z. B. 1.00" required>
+
+    <label for="sens">🕹 Gesamte Empfindlichkeit (H/V)</label>
+    <input type="text" id="sens" name="sens" placeholder="z. B. 1.55 / 1.50" required>
+
+    <label for="discordId">🔗 Deine Discord-ID</label>
+    <input type="text" id="discordId" name="discordId" placeholder="z. B. Smurf#1234" required>
+
+    <label for="notes">📝 Weitere Wünsche oder Notizen</label>
+    <textarea id="notes" name="notes" rows="4" placeholder="Optional: Waffen, Verhalten, Extras..."></textarea>
+
+    <button type="submit">✅ Anfrage senden</button>
+  </form>
+
+  <div class="footer">
+    © 2025 SmurfSeinDady Scripts – Dein Cronus Zen Specialist für PS5 Gaming
+  </div>
+
+  <script>
+    const form = document.getElementById('customForm');
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      let message = '📋 Neue Custom Script Anfrage:\\n\\n';
+      for (const [key, value] of data.entries()) {
+        message += `**${key}**: ${value}\\n`;
+      }
+
+      await fetch("https://discord.com/api/webhooks/1379893845537325116/6Chc006dlUBr-EvxleuKRD9FJJUg3ZHklfpVqx0YNXqFBb_HmmKQBLN8yGVv9MvMtd1C", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: message })
+      });
+
+      alert("✅ Anfrage erfolgreich gesendet! Wir melden uns bald über Discord.");
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
